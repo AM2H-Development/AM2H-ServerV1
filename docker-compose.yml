@@ -10,7 +10,7 @@ services:
     depends_on:
       - mysqldb
     volumes:
-      - am2h-serverV1_data:/home/node/app
+      - /opt/AM2H-ServerV1/:/home/node/app
     ports:
       - "3000:3000"                                                                                                                                                                                                                                                                                  
     networks:
@@ -31,7 +31,7 @@ services:
       - NODE_ENV=production
     command: "node --expose-gc startMqttTimer.js"
     volumes:
-      - am2h-serverV1_data:/home/node/app
+      - /opt/AM2H-ServerV1/:/home/node/app
     networks:
       - am2h-serverV1
       - mqtt
@@ -60,6 +60,3 @@ networks:
  mqtt:
    external:
      name: mqtt_mqtt
-
-volumes:
-  am2h-serverV1_data:
