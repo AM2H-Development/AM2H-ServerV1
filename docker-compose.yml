@@ -29,7 +29,7 @@ services:
     working_dir: /home/node/app
     environment:
       - NODE_ENV=production
-    command: "/usr/bin/node --expose-gc startMqttTimer.js"
+    command: "node --expose-gc startMqttTimer.js"
     volumes:
       - am2h-serverV1_data:/home/node/app
     networks:
