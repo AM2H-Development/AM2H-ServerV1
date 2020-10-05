@@ -2,5 +2,5 @@
 
 ## installation and startup
 * git clone https://github.com/AM2H-Development/AM2H-ServerV1.git
-* cd mqtt
+* cd AM2H-ServerV1
 * docker-compose up -d
