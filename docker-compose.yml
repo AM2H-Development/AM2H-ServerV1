@@ -23,6 +23,24 @@ services:
       options:
         max-size: "200k"
         max-file: "10"
+  am2h-timerV1:
+    image: "node:8"
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=production
+    command: "/usr/bin/node --expose-gc startMqttTimer.js"
+    volumes:
+      - am2h-serverV1_data:/home/node/app
+    networks:
+      - am2h-serverV1
+      - mqtt
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
   mysqldb:
     image: mysql:5.7
     restart: unless-stopped
