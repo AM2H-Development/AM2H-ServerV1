@@ -1,0 +1,47 @@
+version: "3"
+services:
+  am2h-serverV1:
+    image: "node:8"
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=production
+    command: "npm start"
+    depends_on:
+      - mysqldb
+    volumes:
+      - am2h-serverV1_data:/home/node/app
+    ports:
+      - "3000:3000"                                                                                                                                                                                                                                                                                  
+    networks:
+      - am2h-serverV1
+      - influx_db
+      - mqtt
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+  mysqldb:
+    image: mysql:5.7
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: asdfghjklqww
+      MYSQL_DATABASE: akm
+    volumes:
+      - /media/database/mysql:/var/lib/mysql
+    networks:
+      - am2h-serverV1
+
+networks:
+ am2h-serverV1:
+ influx_db:
+   external:
+     name: influx_db
+ mqtt:
+   external:
+     name: mqtt_mqtt
+
+volumes:
+  am2h-serverV1_data:
