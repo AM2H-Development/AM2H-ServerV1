@@ -49,6 +49,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: asdfghjklqww
       MYSQL_DATABASE: akm
+      TZ: Europe/Berlin
     volumes:
       - /media/database/mysql:/var/lib/mysql
     networks:
