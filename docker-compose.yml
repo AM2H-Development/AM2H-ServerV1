@@ -4,7 +4,7 @@ services:
     image: "node:8"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.am2hserver.rule=Host(`home.${HOST}`)"
+      - "traefik.http.routers.am2hserver.rule=Host(`h.${HOST}`)"
       - "traefik.http.routers.am2hserver.entrypoints=websecure"
       - "traefik.http.routers.am2hserver.tls.certresolver=myresolver"
       - "traefik.http.services.am2hserver.loadbalancer.server.port=3000"
