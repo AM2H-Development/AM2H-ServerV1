@@ -74,3 +74,4 @@ networks:
  mqtt:
    external:
      name: mqtt_mqtt
+     name: traefik_net
