@@ -8,11 +8,11 @@ services:
       - "traefik.http.routers.am2hserver.entrypoints=websecure"
       - "traefik.http.routers.am2hserver.tls.certresolver=myresolver"
       - "traefik.http.services.am2hserver.loadbalancer.server.port=3000"
-      # - "traefik.http.middlewares.am2hserversts.headers.stsincludesubdomains=false"
-      # - "traefik.http.middlewares.am2hserversts.headers.stspreload=true"
-      # - "traefik.http.middlewares.am2hserversts.headers.stsseconds=31536000"
-      # - "traefik.http.middlewares.am2hserversts.headers.isdevelopment=false"
-      # - "traefik.http.routers.am2hserver.middlewares=am2hserversts"
+      - "traefik.http.middlewares.am2hserversts.headers.stsincludesubdomains=false"
+      - "traefik.http.middlewares.am2hserversts.headers.stspreload=true"
+      - "traefik.http.middlewares.am2hserversts.headers.stsseconds=31536000"
+      - "traefik.http.middlewares.am2hserversts.headers.isdevelopment=false"
+      - "traefik.http.routers.am2hserver.middlewares=am2hserversts"
     user: "node"
     working_dir: /home/node/app
     environment:
