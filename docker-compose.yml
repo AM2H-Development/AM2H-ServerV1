@@ -26,9 +26,7 @@ services:
     ports:
       - "3000:3000"                                                                                                                                                                                                                                                                                  
     networks:
-      - am2h-serverV1
-      - influx_db
-      - mqtt
+      - net
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -45,9 +43,6 @@ services:
     command: "node --expose-gc startMqttTimer.js"
     volumes:
       - /opt/AM2H-ServerV1/:/home/node/app
-    networks:
-      - am2h-serverV1
-      - mqtt
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -63,15 +58,7 @@ services:
       TZ: Europe/Berlin
     volumes:
       - /media/database/mysql:/var/lib/mysql
-    networks:
-      - am2h-serverV1
-
 networks:
- am2h-serverV1:
- influx_db:
+ net:
    external:
-     name: influx_db
- mqtt:
-   external:
-     name: mqtt_mqtt
      name: traefik_net
