@@ -5,7 +5,7 @@ services:
     working_dir: /home/node/app
     environment:
       - NODE_ENV=production
-      - TZ="Europe/Berlin"
+      # - TZ="Europe/Berlin"
     command: "npm start"
     volumes:
       - /opt/AM2H-ServerV1/:/home/node/app
@@ -24,7 +24,7 @@ services:
     working_dir: /home/node/app
     environment:
       - NODE_ENV=production
-      - TZ="Europe/Berlin"
+      # - TZ="Europe/Berlin"
     command: "node --expose-gc startMqttTimer.js"
     volumes:
       - /opt/AM2H-ServerV1/:/home/node/app
@@ -35,6 +35,7 @@ services:
       options:
         max-size: "200k"
         max-file: "10"
+
 
 
 
