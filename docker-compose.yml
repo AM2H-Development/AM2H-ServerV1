@@ -1,32 +1,17 @@
 version: "3"
 services:
   am2h-serverV1:
-    image: "node:8"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.am2hserver.rule=Host(`home.${HOST}`)"
-      - "traefik.http.routers.am2hserver.entrypoints=websecure"
-      - "traefik.http.routers.am2hserver.tls.certresolver=myresolver"
-      - "traefik.http.services.am2hserver.loadbalancer.server.port=3000"
-      - "traefik.http.middlewares.am2hserversts.headers.stsincludesubdomains=false"
-      - "traefik.http.middlewares.am2hserversts.headers.stspreload=true"
-      - "traefik.http.middlewares.am2hserversts.headers.stsseconds=31536000"
-      - "traefik.http.middlewares.am2hserversts.headers.isdevelopment=false"
-      - "traefik.http.routers.am2hserver.middlewares=am2hserversts"
+    image: "node:9.1-alpine"
     user: "node"
     working_dir: /home/node/app
     environment:
       - NODE_ENV=production
-      - TZ=Europe/Berlin
+      - TZ="Europe/Berlin"
     command: "npm start"
-    depends_on:
-      - mysqldb
     volumes:
       - /opt/AM2H-ServerV1/:/home/node/app
     ports:
       - "3000:3000"                                                                                                                                                                                                                                                                                  
-    networks:
-      - net
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -34,13 +19,13 @@ services:
         max-size: "200k"
         max-file: "10"
   am2h-timerV1:
-    image: "node:8"
+    image: "node:9.1-alpine"
     user: "node"
     working_dir: /home/node/app
     environment:
       - NODE_ENV=production
-      - TZ=Europe/Berlin
-    command: "node --expose-gc startMqttTimer.js"
+      - TZ="Europe/Berlin"
+    command: "env TZ='Europe/Berlin' node --expose-gc startMqttTimer.js"
     volumes:
       - /opt/AM2H-ServerV1/:/home/node/app
     restart: unless-stopped
@@ -49,16 +34,3 @@ services:
       options:
         max-size: "200k"
         max-file: "10"
-  mysqldb:
-    image: mysql:5.7
-    restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: asdfghjklqww
-      MYSQL_DATABASE: akm
-      TZ: Europe/Berlin
-    volumes:
-      - /media/database/mysql:/var/lib/mysql
-networks:
- net:
-   external:
-     name: traefik_net
