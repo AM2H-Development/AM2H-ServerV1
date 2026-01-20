@@ -9,6 +9,8 @@ services:
     command: "npm start"
     volumes:
       - /opt/AM2H-ServerV1/:/home/node/app
+      - /etc/localtime:/etc/localtime:ro
+      - /usr/share/zoneinfo:/usr/share/zoneinfo:ro
     ports:
       - "3000:3000"                                                                                                                                                                                                                                                                                  
     restart: unless-stopped
@@ -24,13 +26,16 @@ services:
     environment:
       - NODE_ENV=production
       - TZ="Europe/Berlin"
-    command: "env TZ='Europe/Berlin' node --expose-gc startMqttTimer.js"
+    command: "node --expose-gc startMqttTimer.js"
     volumes:
       - /opt/AM2H-ServerV1/:/home/node/app
+      - /etc/localtime:/etc/localtime:ro
+      - /usr/share/zoneinfo:/usr/share/zoneinfo:ro
     restart: unless-stopped
     logging:
       driver: "json-file"
       options:
         max-size: "200k"
         max-file: "10"
+
 
